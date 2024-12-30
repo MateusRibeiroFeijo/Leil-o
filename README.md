@@ -1,0 +1,1 @@
+O projeto se trata de um sistema que gerencia, vende e lista produtos que serão leiloados. Com o objetivo de usar um sistema informatizado em suas rotinas, visando um melhor desempenho em suas vendas.
