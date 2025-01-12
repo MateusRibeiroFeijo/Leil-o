@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -136,12 +137,24 @@ public class listagemVIEW extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
-        String id = id_produto_venda.getText();
-        
-        ProdutosDAO produtosdao = new ProdutosDAO();
-        
-        //produtosdao.venderProduto(Integer.parseInt(id));
-        listarProdutos();
+        if (!emptyFields()) {
+            try {
+                // Pegar o ID do produto a partir do campo de texto
+                String id = id_produto_venda.getText();
+
+                // Converter o ID para inteiro e chamar o método
+                ProdutosDAO produtosdao = new ProdutosDAO();
+                produtosdao.venderProduto(Integer.parseInt(id));
+
+                // Atualizar a tabela de produtos após a venda
+                listarProdutos();
+
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "ID inválido. Por favor, insira um número válido.");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
+            }
+        }
     }//GEN-LAST:event_btnVenderActionPerformed
 
     private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
@@ -221,5 +234,17 @@ public class listagemVIEW extends javax.swing.JFrame {
         } catch (Exception e) {
         }
     
+    }
+    
+    private boolean emptyFields() {
+
+        boolean empty = true;
+
+        if (id_produto_venda.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "Por favor, digite um ID");
+        } else {
+            empty = false;
+        }
+        return empty;
     }
 }
